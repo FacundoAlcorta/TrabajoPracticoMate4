@@ -4,26 +4,26 @@ import pandas as pd
 
 # Definir la función de costo o error cuadrático medio(MSE)
 def costo(X, y, theta):
-  m = len(y) # Número de observaciones
+  m = len(y)
   y_pred = X.dot(theta) # Predicción lineal
   error = (y - y_pred) ** 2 # Error al cuadrado
-  return 1 / (2 * m) * np.sum(error) # Costo promedio
+  return 1 / (2 * m) * np.sum(error) 
 
-# Definir el algoritmo de descenso de gradiente con criterio de diferencia relativa
+# Algoritmo de descenso de gradiente
 def descenso_gradiente(X, y, theta, alpha, iteraciones, tolerancia):
   m = len(y) # Número de observaciones
   costo_historico = np.zeros(iteraciones) # Vector para almacenar el costo en cada iteración
   theta_historico = np.zeros((iteraciones, len(theta))) # Matriz para almacenar el valor de theta en cada iteración
   for i in range(iteraciones):
     y_pred = X.dot(theta) # Predicción lineal
-    error = np.dot(X.transpose(), (y_pred - y)) # Error ponderado por las variables independientes
+    error = np.dot(X.transpose(), (y_pred - y)) # Error 
     theta = theta - alpha * (1 / m) * error # Actualización de theta
-    costo_historico[i] = costo(X, y, theta) # Almacenar el costo
+    costo_historico[i] = costo(X, y, theta) # Almacenar el error
     theta_historico[i,:] = theta.T # Almacenar el valor de theta
     print(f"error de iteracion {i} : {costo(X, y, theta)}")
     if i > 0: # Verificar si hay al menos dos iteraciones
       dif_relativa = abs(costo_historico[i] - costo_historico[i-1]) / costo_historico[i-1] # Calcular la diferencia relativa del costo
-      if dif_relativa < tolerancia: # Verificar si la diferencia relativa es menor que la tolerancia
+      if dif_relativa < tolerancia: # Verificar si es menor que la tolerancia
         break # Detener el algoritmo
   return theta, costo_historico, theta_historico
 
