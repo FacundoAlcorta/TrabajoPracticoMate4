@@ -9,7 +9,7 @@ def predecir_calidad_vino(fixed_acidity, citric_acid, residual_sugar, sulfur_dio
     #coeficientes = [1.7537438,0.32436092, 0.97484543,  1.84712528, -0.08664456, -0.98768211 ,0.9193967,  -0.22196713]
     #coeficientes = [ 1.75757476,0.28576758,0.97161389 , 0.0280822  ,-0.00672289 ,-0.98481065 ,0.946094  ,  0.05794842]
     
-    # Calcula la calidad del vino utilizando la ecuación de regresión lineal
+    # Calcula la calidad con los coeficientes
     calidad = coeficientes[0] + \
               coeficientes[1] * fixed_acidity + \
               coeficientes[2] * citric_acid + \
@@ -24,10 +24,10 @@ def predecir_calidad_vino(fixed_acidity, citric_acid, residual_sugar, sulfur_dio
 # Cargar los datos desde el archivo CSV
 df = pd.read_csv('wines.csv')
 
-# Obtener las primeras 10 filas del conjunto de datos
+# Obtener las primeras 100 filas del conjunto de datos
 primeras_10_filas = df.head(100)
 
-# Iterar sobre las filas y realizar predicciones
+# Iterar sobre las filas
 for index, fila in primeras_10_filas.iterrows():
     # Obtener los valores de las variables independientes de la fila
     fixed_acidity = fila['fixed acidity']
